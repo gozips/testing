@@ -27,6 +27,14 @@ func VerifyZip(t *testing.T, b []byte, entries []Entries) error {
 		return err
 	}
 
+	// check len on both ends match
+	n := len(z.File)
+	m := len(entries)
+	if n != m {
+		t.Errorf("# of files in the zip (%d) does not match that of entries(%d)", n,
+			m)
+	}
+
 	for i, entry := range entries {
 		f := z.File[i]
 		r, err := f.Open()
